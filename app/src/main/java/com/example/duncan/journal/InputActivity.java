@@ -25,19 +25,14 @@ public class InputActivity extends AppCompatActivity {
         EditText moodEdit = findViewById(R.id.moodEdit);
         String mood = moodEdit.getText().toString();
 
-        // https://stackoverflow.com/questions/5175728/how-to-get-the-current-date-time-in-java
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
-        // create journal entry
         JournalEntry newEntry = new JournalEntry(title, entry, mood, timeStamp);
 
-        // get database
         EntryDatabase db = EntryDatabase.getInstance(getApplicationContext());
 
-        // insert entry into database
         db.insert(newEntry);
 
-        // move to main activity after submitting
         Intent intent = new Intent(InputActivity.this, MainActivity.class);
         startActivity(intent);
     }
