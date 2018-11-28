@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
             String title = cursor.getString(cursor.getColumnIndex("title"));
             String content = cursor.getString(cursor.getColumnIndex("content"));
             String timestamp = cursor.getString(cursor.getColumnIndex("timestamp"));
+
+            JournalEntry entryClicked = new JournalEntry(title, content, mood, timestamp);
+
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-            intent.putExtra("Title", title);
-            intent.putExtra("Mood", mood);
-            intent.putExtra("Content", content);
-            intent.putExtra("Timestamp", timestamp);
+            intent.putExtra("entryClicked", entryClicked);
             startActivity(intent);
         }
     }

@@ -25,13 +25,13 @@ public class InputActivity extends AppCompatActivity {
         EditText moodEdit = findViewById(R.id.moodEdit);
         String mood = moodEdit.getText().toString();
 
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
-        JournalEntry newEntry = new JournalEntry(title, entry, mood, timeStamp);
+        JournalEntry neww = new JournalEntry(title, entry, mood, timestamp);
 
         EntryDatabase db = EntryDatabase.getInstance(getApplicationContext());
 
-        db.insert(newEntry);
+        db.insert(neww);
 
         Intent intent = new Intent(InputActivity.this, MainActivity.class);
         startActivity(intent);

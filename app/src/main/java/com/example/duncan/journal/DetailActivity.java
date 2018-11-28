@@ -11,25 +11,24 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         Intent intent = getIntent();
-        String Title = (String) intent.getSerializableExtra("Title");
-        String Mood = (String) intent.getSerializableExtra("Mood");
-        String Content = (String) intent.getSerializableExtra("Content");
-        String Timestamp = (String) intent.getSerializableExtra("Timestamp");
-        TextView title  = (TextView) findViewById(R.id.entryTitle);
-        TextView mood = (TextView) findViewById(R.id.entryMood);
-        TextView content = (TextView) findViewById(R.id.entryContent);
-        TextView timestamp = (TextView) findViewById(R.id.entryDate);
+        JournalEntry entry = (JournalEntry) intent.getSerializableExtra("entryClicked");
 
-        title.setText(Title);
-        mood.setText(" " + Mood);
-        content.setText(Content);
-        timestamp.setText(Timestamp);
-    }
+        String title = entry.getTitle();
+        String content = entry.getContent();
+        String mood = entry.getMood();
+        String timestamp = entry.getTimestamp();
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(DetailActivity.this, MainActivity.class);
-        startActivity(intent);
+        TextView titleView = findViewById(R.id.entryTitle);
+        TextView contentView = findViewById(R.id.entryContent);
+        TextView moodView = findViewById(R.id.entryMood);
+        TextView dateView = findViewById(R.id.entryDate);
+
+        titleView.setText(title);
+        contentView.setText(content);
+        moodView.setText(mood);
+        dateView.setText(timestamp);
+
     }
 }
