@@ -11,26 +11,20 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
         Intent intent = getIntent();
+        String Title = (String) intent.getSerializableExtra("Title");
+        String Mood = (String) intent.getSerializableExtra("Mood");
+        String Content = (String) intent.getSerializableExtra("Content");
+        String Timestamp = (String) intent.getSerializableExtra("Timestamp");
+        TextView title  = (TextView) findViewById(R.id.entryTitle);
+        TextView mood = (TextView) findViewById(R.id.entryMood);
+        TextView content = (TextView) findViewById(R.id.entryContent);
+        TextView timestamp = (TextView) findViewById(R.id.entryDate);
 
-        JournalEntry entry = (JournalEntry) intent.getSerializableExtra("clicked_entry");
-
-        String title = entry.getTitle();
-        TextView titleView = findViewById(R.id.entryTitle);
-        titleView.setText(title);
-
-        String content = entry.getContent();
-        TextView contentView = findViewById(R.id.entryContent);
-        contentView.setText(content);
-
-        String mood = entry.getMood();
-        TextView moodView = findViewById(R.id.entryMood);
-        moodView.setText(mood);
-
-        String timestamp = entry.getTimestamp();
-        TextView dateView = findViewById(R.id.entryDate);
-        dateView.setText(timestamp);
+        title.setText(Title);
+        mood.setText(" " + Mood);
+        content.setText(Content);
+        timestamp.setText(Timestamp);
     }
 
     @Override
