@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:clickable="true"
-        android:onClick="faButtonClick"
+        android:onClick="ButtonClick"
         tools:srcCompat="@tools:sample/avatars[1]" />
-
 </android.support.design.widget.CoordinatorLayout>

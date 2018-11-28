@@ -5,18 +5,28 @@ import java.sql.Timestamp;
 
 public class JournalEntry implements Serializable {
 
-    int id;
-    String title, content, mood;
-    Timestamp timestamp;
+    String title, content, mood, timestamp;
 
-    // constructor
-    public JournalEntry(int id, String title, String content, String mood, Timestamp timestamp) {
-        this.id = id;
+    public JournalEntry(String title, String content, String mood, String timestamp) {
         this.title = title;
         this.content = content;
         this.mood = mood;
         this.timestamp = timestamp;
     }
 
-    // TODO GETTERS AND SETTERS
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getMood() {
+        return mood;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
 }

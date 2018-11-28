@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
+        android:textStyle="bold"
         android:text="TextView" />
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
+        android:textStyle="italic"
         android:text="TextView" />
 
     <TextView

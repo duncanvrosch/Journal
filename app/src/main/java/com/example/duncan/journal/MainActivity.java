@@ -8,7 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.sql.Timestamp;
+
 public class MainActivity extends AppCompatActivity {
+
+    EntryDatabase db;
+    EntryAdapter entryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,35 +22,37 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listview = findViewById(R.id.listView);
         listview.setOnItemClickListener(new OnItemClickListener());
+        listview.setOnItemLongClickListener(new OnItemLongClickListener());
 
-        EntryDatabase db = EntryDatabase.getInstance(getApplicationContext());
+        db = EntryDatabase.getInstance(getApplicationContext());
 
-        // create cursor
         Cursor cursor = db.selectAll();
-
-        // link listview to adapter
-        EntryAdapter entryAdapter = new EntryAdapter(getApplicationContext(), cursor);
+        entryAdapter = new EntryAdapter(getApplicationContext(), cursor);
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(entryAdapter);
     }
 
-    // listener for floating action button
-    public void faButtonClick(View v) {
+    public void ButtonClick(View v) {
 
-        // redirect user to new entry activity
         Intent intent = new Intent(MainActivity.this, InputActivity.class);
         startActivity(intent);
     }
-
-
 
     private class OnItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            // TODO
-
+            Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+            String mood = cursor.getString(cursor.getColumnIndex("mood"));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String content = cursor.getString(cursor.getColumnIndex("content"));
+            String timestamp = cursor.getString(cursor.getColumnIndex("timestamp"));
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra("Title", title);
+            intent.putExtra("Mood", mood);
+            intent.putExtra("Content", content);
+            intent.putExtra("Timestamp", timestamp);
+            startActivity(intent);
         }
     }
 
@@ -53,11 +60,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-
-
+            Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+            long entryId = cursor.getLong(cursor.getColumnIndex("_id"));
+            db.deleteEntry(entryId);
+            updateData();
             return true;
         }
+    }
+
+    @Override
+    protected void onResume (){
+        super.onResume();
+        updateData();
+    }
+
+    private void updateData() {
+        Cursor newCursor = db.selectAll();
+        entryAdapter.swapCursor(newCursor);
     }
 }
